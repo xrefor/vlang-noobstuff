@@ -3,7 +3,7 @@ playing with vlang
 
 Just a random script to check if two users can "register" based on their ages. No practical use besides learning vlang.
 
-v run agetest.v
+``v run agetest.v
 [?] User Name: noob
 [?] User age: 1
 [?] User2 Name: bob
@@ -15,3 +15,4 @@ v run agetest.v
 [+] bob is 20 yeas old.        
 [+] bob can register: true     
 [+]----------------------------
+``
