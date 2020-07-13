@@ -1,31 +1,47 @@
+module main
+
+import cli
+import os
+
 fn main() {
-	lb := '[+]----------------------------'
-	user_name := input('[?] User Name: ')
-	user_age := input('[?] User age: ')
-	user2_name := input('[?] User2 Name: ')
-	user2_age := input('[?] User2 age: ')
-	user := User{
-		age: user_age.int()
-		name: user_name
+	mut cmd := cli.Command{
+		name: 'agetest',
+		description: 'noobing around',
+		version: '0.0.2',
 	}
-	user2 := User{
-		age: user2_age.int()
-		name: user2_name
+
+	mut register_cmd := cli.Command{
+		name: 'register',
+		description: 'register user',
+		execute: register_func,
 	}
-	println(lb)
-	println('[+] $user.name is $user.age years old.')
-	println('[+] $user.name can register: $user.can_register()')
-	println(lb)
-	println('[+] $user2.name is $user2.age yeas old.')
-	println('[+] $user2.name can register: $user2.can_register()')
-	println(lb)
+
+	register_cmd.add_flag(cli.Flag{
+		flag: .string,
+		required: true,
+		name: 'name',
+		description: 'Name of the user',
+	})
+
+	register_cmd.add_flag(cli.Flag{
+		flag: .int,
+		name: 'age',
+		description: 'Age of the user',
+	})
+	
+	cmd.add_command(register_cmd)
+	cmd.parse(os.args)
+
 }
 
-struct User {
-	age  int
-	name string
-}
+fn register_func(cmd cli.Command){
+	name := cmd.flags.get_string('name') or { panic('failed to get \'name\' flag: $err')}
+	age := cmd.flags.get_int('age') or { panic('failed to get \'age\' flag: $err')}	
 
-fn (u User) can_register() bool {
-	return u.age > 18
+	println('[+] $name is $age old')
+	if age > 18 {
+		println('[+} $name can register')
+	} else {
+		println('[!] $name cannot register')
+	}
 }
