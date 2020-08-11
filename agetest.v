@@ -39,7 +39,7 @@ fn register_func(cmd cli.Command){
 	age := cmd.flags.get_int('age') or { panic('failed to get \'age\' flag: $err')}	
 
 	println('[+] $name is $age old')
-	if age > 18 {
+	if age >= 18 {
 		println('[+} $name can register')
 	} else {
 		println('[!] $name cannot register')
