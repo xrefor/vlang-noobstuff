@@ -10,9 +10,11 @@ usage: ./agetest register --name peter --age 18
 result:
 
 [+] peter is 18 old
-[+} nisse can register
+
+[+} peter can register
 
 If age is less than 18:
 
 [+] peter is 17 old
-[+} nisse cannot register
+
+[+} peter cannot register
